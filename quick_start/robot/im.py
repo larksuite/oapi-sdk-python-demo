@@ -140,6 +140,7 @@ def do_p2_im_message_receive_v1(data: P2ImMessageReceiveV1) -> None:
             raise Exception(
                 f"client.im.v1.chat.create failed, code: {response.code}, msg: {response.msg}, log_id: {response.get_log_id()}")
 
+        # 获取会话信息
         chat_info = get_chat_info(msg.chat_id)
         name = chat_info.name
         if name.startswith("[跟进中]"):
@@ -147,16 +148,20 @@ def do_p2_im_message_receive_v1(data: P2ImMessageReceiveV1) -> None:
         elif not name.startswith("[已解决]"):
             name = "[已解决]" + name
 
+        # 更新会话名称
         update_chat_name(msg.chat_id, name)
 
 
 # 处理卡片回调
 def do_interactive_card(data: lark.Card) -> Any:
     if data.action.value.get("key") == "follow":
+        # 获取会话信息
         chat_info = get_chat_info(data.open_chat_id)
         name = chat_info.name
         if not name.startswith("[跟进中]") and not name.startswith("[已解决]"):
             name = "[跟进中] " + name
+
+        # 更新会话名称
         update_chat_name(data.open_chat_id, name)
 
         return _build_card("跟进中")
@@ -308,7 +313,3 @@ def _build_card(button_name: str) -> str:
     }
 
     return lark.JSON.marshal(card)
-
-
-if __name__ == "__main__":
-    list_chat_history("chat_id")
