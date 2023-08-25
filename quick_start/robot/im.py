@@ -308,3 +308,7 @@ def _build_card(button_name: str) -> str:
     }
 
     return lark.JSON.marshal(card)
+
+
+if __name__ == "__main__":
+    list_chat_history("chat_id")
