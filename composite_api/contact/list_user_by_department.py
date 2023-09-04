@@ -17,12 +17,12 @@ class ListUserByDepartmentRequest(object):
 class ListUserByDepartmentResponse(BaseResponse):
     def __init__(self):
         super().__init__()
-        self.children_department_response: Optional[ChildrenDepartmentResponse] = None
-        self.find_by_department_user_response: List[FindByDepartmentUserResponse] = []
+        self.children_department_response: Optional[ChildrenDepartmentResponseBody] = None
+        self.find_by_department_user_response: List[User] = []
 
 
 # 获取部门下所有用户列表
-def list_user_by_department(client: lark.Client, request: ListUserByDepartmentRequest):
+def list_user_by_department(client: lark.Client, request: ListUserByDepartmentRequest) -> BaseResponse:
     # 获取子部门列表
     children_department_req = ChildrenDepartmentRequest.builder() \
         .department_id_type("open_department_id") \

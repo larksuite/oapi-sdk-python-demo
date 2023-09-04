@@ -23,7 +23,7 @@ class DownloadMediaByRangeResponse(lark.BaseResponse):
         self.download_media_response: List[DownloadMediaResponse] = []
 
 
-#
+# 下载指定范围单元格的所有素材列表
 def download_media_by_range(client: lark.Client, request: DownloadMediaByRangeRequest):
     # 读取单个范围
     read_req: lark.BaseRequest = lark.BaseRequest.builder() \
@@ -77,7 +77,7 @@ def download_media_by_range(client: lark.Client, request: DownloadMediaByRangeRe
 
 def _parse_file_token(values: List[Any], tokens: List[str]) -> List[str]:
     if values is None or len(values) == 0:
-        return []
+        return tokens
     for i in values:
         if isinstance(i, List):
             _parse_file_token(i, tokens)

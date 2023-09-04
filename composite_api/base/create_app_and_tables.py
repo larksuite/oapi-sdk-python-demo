@@ -20,7 +20,7 @@ class CreateAppAndTablesResponse(BaseResponse):
     def __init__(self):
         super().__init__()
         self.create_app_response: Optional[CreateAppResponseBody] = None
-        self.create_app_tables_response: Optional[CreateAppTableResponseBody] = None
+        self.create_app_tables_response: List[CreateAppTableResponseBody] = []
 
 
 # 创建多维表格同时添加数据表
